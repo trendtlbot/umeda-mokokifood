@@ -3,172 +3,300 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>梅田駅周辺 1000円以内チーズハンバーグ風定食ランダムセレクター</title>
+<title>十三駅周辺 1000円以内ラーメン・つけ麺 ランダムピックアップ</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
-    background: #f8f4ef;
+    font-family: 'Noto Sans JP', sans-serif;
+    background: linear-gradient(135deg, #f5f0e6 0%, #e8d9c0 100%);
     color: #333;
-    max-width: 720px;
-    margin: 0 auto;
+    min-height: 100vh;
     padding: 20px;
-    line-height: 1.6;
   }
-  h1 {
-    text-align: center;
-    color: #8B4513;
-    font-size: 1.6rem;
-  }
-  .card {
-    background: white;
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    background: #fff;
     border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    overflow: hidden;
+  }
+  header {
+    background: #8B4513;
+    color: white;
     padding: 24px;
-    margin: 20px 0;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
   }
-  .result {
-    background: #fff8e7;
-    border: 3px solid #e8b86d;
+  header h1 {
+    font-size: 1.6rem;
+    margin-bottom: 8px;
   }
-  button {
+  header p {
+    font-size: 0.95rem;
+    opacity: 0.9;
+  }
+  .content {
+    padding: 28px;
+  }
+  .btn {
     display: block;
     width: 100%;
     padding: 16px;
-    font-size: 1.2rem;
-    background: #c45c26;
+    background: #d2691e;
     color: white;
     border: none;
     border-radius: 12px;
-    cursor: pointer;
-    margin: 16px 0;
-  }
-  button:hover {
-    background: #a34a1f;
-  }
-  .min-price {
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     font-weight: bold;
-    color: #c45c26;
+    cursor: pointer;
+    transition: background 0.3s;
+    margin-bottom: 24px;
   }
-  ul {
-    padding-left: 20px;
+  .btn:hover {
+    background: #b8860b;
   }
-  li {
-    margin-bottom: 8px;
+  .result {
+    display: none;
+    background: #fff8f0;
+    border: 3px solid #d2691e;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    animation: fadeIn 0.5s ease;
   }
-  .prompt {
-    font-size: 0.75rem;
-    color: #666;
-    background: #eee;
-    padding: 12px;
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .result h2 {
+    color: #8B4513;
+    font-size: 1.5rem;
+    margin-bottom: 12px;
+  }
+  .result .menu {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #d2691e;
+    margin: 8px 0;
+  }
+  .result .price {
+    font-size: 1.8rem;
+    color: #c0392b;
+    font-weight: bold;
+  }
+  .result .info {
+    margin-top: 12px;
+    font-size: 0.95rem;
+    color: #555;
+  }
+  .section {
+    margin-top: 32px;
+  }
+  .section h3 {
+    color: #8B4513;
+    border-bottom: 2px solid #d2691e;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.9rem;
+  }
+  th, td {
+    border: 1px solid #ddd;
+    padding: 10px 8px;
+    text-align: left;
+  }
+  th {
+    background: #f5e6d3;
+    color: #8B4513;
+  }
+  tr:nth-child(even) {
+    background: #faf6f0;
+  }
+  .lowest {
+    background: #fff3cd;
+    padding: 16px;
     border-radius: 8px;
-    white-space: pre-wrap;
+    margin-bottom: 16px;
+    border-left: 5px solid #ffc107;
+  }
+  footer {
+    background: #333;
+    color: #ccc;
+    padding: 20px;
+    font-size: 0.75rem;
+    line-height: 1.6;
     word-break: break-all;
   }
-  .note {
-    font-size: 0.85rem;
-    color: #666;
+  footer strong {
+    color: #fff;
   }
 </style>
 </head>
 <body>
+  <div class="container">
+    <header>
+      <h1>🍜 十三駅周辺<br>1000円以内ラーメン・つけ麺</h1>
+      <p>ランダムピックアップサイト</p>
+    </header>
 
-<h1>梅田駅周辺<br>1000円以内<br>チーズハンバーグ風定食<br>ランダムピックアップ</h1>
+    <div class="content">
+      <button class="btn" onclick="pickRandom()">🎲 ランダムに選ぶ！</button>
 
-<div class="card">
-  <p>画像のような「チーズがのったハンバーグ＋ご飯＋サラダ」を1000円以内で食べられるお店をランダムに選びます。</p>
-  <button onclick="pickRandom()">ランダムに選ぶ</button>
-</div>
+      <div id="result" class="result">
+        <h2 id="shopName"></h2>
+        <div class="menu" id="menuName"></div>
+        <div class="price" id="menuPrice"></div>
+        <div class="info" id="shopInfo"></div>
+      </div>
 
-<div id="result" class="card result" style="display:none;">
-  <h2>今日のおすすめ</h2>
-  <p><strong>お店：</strong><span id="shop"></span></p>
-  <p><strong>メニュー：</strong><span id="menu"></span></p>
-  <p><strong>目安価格：</strong><span id="price" class="min-price"></span></p>
-  <p class="note">※価格は税込目安。実際は店舗でご確認ください。行列ができる人気店が多いです。</p>
-</div>
+      <div class="section">
+        <h3>💰 最低値情報</h3>
+        <div class="lowest" id="lowestInfo">
+          現在のデータでの最低価格メニューは「楽園」の「金の牛かす塩らぁ麺」約680円前後です。<br>
+          （価格は変動する可能性があるため、実際の店舗でご確認ください）
+        </div>
+      </div>
 
-<div class="card">
-  <h2>最低値</h2>
-  <p class="min-price">約480円〜（永田精肉店の手ごねハンバーグ単品）</p>
-  <p>セットだとおおむね <strong>840円〜980円</strong> がボリュームゾーンです。</p>
-</div>
+      <div class="section">
+        <h3>📋 選ばれるメニュー一覧（1000円以内）</h3>
+        <table>
+          <thead>
+            <tr>
+              <th>店舗名</th>
+              <th>メニュー</th>
+              <th>価格目安</th>
+              <th>アクセス</th>
+            </tr>
+          </thead>
+          <tbody id="menuList">
+          </tbody>
+        </table>
+      </div>
+    </div>
 
-<div class="card">
-  <h2>選ばれるメニュー一覧（1000円以内）</h2>
-  <ul id="menuList"></ul>
-</div>
-
-<div class="card">
-  <h2>このプロンプト自体</h2>
-  <div class="prompt">梅田駅周辺でこの料理を1000円以内で食える場所をランダムにピックアップしてメニューもランダムに選ぶHTMLサイトを作ってください　最低値と選ばれるメニュー一覧も確認できるようにして
-このプロンプト自体の文字をサイトの下部に貼って</div>
-</div>
+    <footer>
+      <strong>【このサイトのプロンプト】</strong><br>
+      十三駅周辺でこの料理を1000円以内で食える場所をランダムにピックアップしてメニューもランダムに選ぶHTMLサイトを作ってください　最低値と選ばれるメニュー一覧も確認できるようにして<br>
+      このプロンプト自体の文字をサイトの下部に貼って
+    </footer>
+  </div>
 
 <script>
 const data = [
   {
-    shop: "ぶどう亭（大阪駅前第3ビル B2F）",
+    shop: "ばっこ志",
+    access: "十三駅東口 徒歩1分",
     menus: [
-      { name: "ハンバーグセット", price: "約840〜980円" },
-      { name: "チーズハンバーグセット", price: "約880円" },
-      { name: "おろしハンバーグセット", price: "約840円" },
-      { name: "Aセット（ハンバーグ＋エビフライ＋コロッケ）", price: "約880〜1050円（時期により変動）" }
+      { name: "とんこつら〜めん", price: 800 },
+      { name: "黒油ラーメン", price: 750 },
+      { name: "朱油ラーメン", price: 800 },
+      { name: "特濃ラーメン", price: 900 },
+      { name: "つけ麺", price: 850 }
     ]
   },
   {
-    shop: "グリル欧風軒（大阪駅前第4ビル B2F）",
+    shop: "町田商店 十三店",
+    access: "十三駅東口 徒歩1分",
     menus: [
-      { name: "Aセット（ハンバーグ＋エビフライ＋コロッケ）", price: "約920〜950円" },
-      { name: "ハンバーグ（ビーフ100%）", price: "約950〜980円" },
-      { name: "唐揚げ＆ハンバーグセット", price: "約910円" }
+      { name: "ラーメン（豚骨醤油）", price: 880 },
+      { name: "塩ラーメン", price: 880 },
+      { name: "つけ麺", price: 930 }
     ]
   },
   {
-    shop: "グリル ロン 阪急三番街店（阪急三番街 B2F）",
+    shop: "三豊麺 十三店",
+    access: "十三駅西口 徒歩1分",
     menus: [
-      { name: "Aセット（ハンバーグ＋エビフライ＋コロッケ）", price: "約950円" },
-      { name: "ハンバーグセット", price: "約980円" },
-      { name: "Bセット（ハンバーグ＋ヘレカツ＋サカナフライ）", price: "約950円" }
+      { name: "白博多ラーメン", price: 890 },
+      { name: "黒博多ラーメン", price: 950 },
+      { name: "濃厚魚介つけ麺", price: 990 },
+      { name: "赤博多ラーメン", price: 990 }
     ]
   },
   {
-    shop: "永田精肉店 梅田店（肉屋のハンバーグと炊きたての米）",
+    shop: "楽園",
+    access: "十三駅 徒歩2〜3分",
     menus: [
-      { name: "手ごねハンバーグ", price: "約480円（単品）" },
-      { name: "手ごねハンバーグ＋ご飯セット", price: "約800〜980円前後（目安）" }
+      { name: "金の牛かす塩らぁ麺", price: 680 },
+      { name: "スタミナ牛かす塩らぁ麺", price: 730 },
+      { name: "煮卵牛かす塩らぁ麺", price: 780 },
+      { name: "レアチャーシュー牛かす塩らぁ麺", price: 980 }
     ]
   },
   {
-    shop: "包みハンバーグ SEN HEPナビオ店",
+    shop: "ラーメン豚山 十三東口店",
+    access: "十三駅東口 徒歩1分",
     menus: [
-      { name: "ハンバーグ系ランチ（〜999円帯）", price: "約〜999円" }
+      { name: "ミニラーメン（麺125g・豚2枚）", price: 950 }
+    ]
+  },
+  {
+    shop: "中華そば 桐麺 総本店",
+    access: "十三駅 徒歩2分",
+    menus: [
+      { name: "あっさり醤油ラーメン", price: 880 },
+      { name: "こってり醤油ラーメン", price: 950 },
+      { name: "まぜ麺Z", price: 950 }
+    ]
+  },
+  {
+    shop: "九州らーめん 亀王 十三駅前店",
+    access: "十三駅 徒歩1分",
+    menus: [
+      { name: "黒味噌ラーメン", price: 850 },
+      { name: "とんこつラーメン", price: 800 }
     ]
   }
 ];
 
-// メニュー一覧を表示
-const listEl = document.getElementById("menuList");
+// 全メニューをフラット化
+const allMenus = [];
 data.forEach(shop => {
-  shop.menus.forEach(m => {
-    const li = document.createElement("li");
-    li.textContent = `${shop.shop} ／ ${m.name} ／ ${m.price}`;
-    listEl.appendChild(li);
+  shop.menus.forEach(menu => {
+    allMenus.push({
+      shop: shop.shop,
+      access: shop.access,
+      name: menu.name,
+      price: menu.price
+    });
   });
 });
 
-function pickRandom() {
-  // お店をランダム
-  const shop = data[Math.floor(Math.random() * data.length)];
-  // そのお店のメニューをランダム
-  const menu = shop.menus[Math.floor(Math.random() * shop.menus.length)];
+// メニュー一覧を表示
+const tbody = document.getElementById('menuList');
+allMenus
+  .sort((a, b) => a.price - b.price)
+  .forEach(item => {
+    const tr = document.createElement('tr');
+    tr.innerHTML = `
+      <td>${item.shop}</td>
+      <td>${item.name}</td>
+      <td>${item.price}円</td>
+      <td>${item.access}</td>
+    `;
+    tbody.appendChild(tr);
+  });
 
-  document.getElementById("shop").textContent = shop.shop;
-  document.getElementById("menu").textContent = menu.name;
-  document.getElementById("price").textContent = menu.price;
-  document.getElementById("result").style.display = "block";
+// 最低値を計算
+const lowest = allMenus.reduce((min, m) => m.price < min.price ? m : min, allMenus[0]);
+document.getElementById('lowestInfo').innerHTML = `
+  現在のデータでの<strong>最低価格</strong>は<br>
+  <strong>${lowest.shop}</strong> の 「${lowest.name}」 <span style="color:#c0392b;font-size:1.3rem;">${lowest.price}円</span> です。<br>
+  <small>※価格は変動する可能性があるため、実際の店舗でご確認ください。2024〜2026年時点の情報を基にしています。</small>
+`;
+
+function pickRandom() {
+  const item = allMenus[Math.floor(Math.random() * allMenus.length)];
+  document.getElementById('shopName').textContent = item.shop;
+  document.getElementById('menuName').textContent = item.name;
+  document.getElementById('menuPrice').textContent = item.price + '円';
+  document.getElementById('shopInfo').textContent = 'アクセス: ' + item.access + '　｜　十三駅周辺で1000円以内のラーメン・つけ麺';
+  document.getElementById('result').style.display = 'block';
 }
 </script>
-
 </body>
 </html>
