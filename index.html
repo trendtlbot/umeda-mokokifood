@@ -3,300 +3,251 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>十三駅周辺 1000円以内ラーメン・つけ麺 ランダムピックアップ</title>
+<title>梅田駅周辺 1000円以内ラーメン ランダムピックアップ</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
     font-family: 'Noto Sans JP', sans-serif;
-    background: linear-gradient(135deg, #f5f0e6 0%, #e8d9c0 100%);
+    background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
     color: #333;
     min-height: 100vh;
     padding: 20px;
   }
   .container {
-    max-width: 800px;
+    max-width: 720px;
     margin: 0 auto;
     background: #fff;
     border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
     overflow: hidden;
   }
   header {
-    background: #8B4513;
+    background: linear-gradient(90deg, #c0392b, #e74c3c);
     color: white;
-    padding: 24px;
+    padding: 24px 20px;
     text-align: center;
   }
   header h1 {
-    font-size: 1.6rem;
-    margin-bottom: 8px;
+    font-size: 1.5rem;
+    margin-bottom: 6px;
   }
   header p {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     opacity: 0.9;
   }
-  .content {
-    padding: 28px;
+  .main {
+    padding: 28px 24px;
   }
-  .btn {
+  .result-box {
+    background: #fff5f0;
+    border: 3px solid #e74c3c;
+    border-radius: 12px;
+    padding: 24px;
+    text-align: center;
+    margin-bottom: 24px;
+    min-height: 180px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .result-box h2 {
+    color: #c0392b;
+    font-size: 1.3rem;
+    margin-bottom: 12px;
+  }
+  .result-box .shop {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .result-box .menu {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 8px;
+  }
+  .result-box .price {
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: #e74c3c;
+  }
+  .result-box .note {
+    font-size: 0.8rem;
+    color: #888;
+    margin-top: 10px;
+  }
+  button {
     display: block;
     width: 100%;
     padding: 16px;
-    background: #d2691e;
+    font-size: 1.1rem;
+    font-weight: 700;
     color: white;
+    background: linear-gradient(90deg, #c0392b, #e74c3c);
     border: none;
-    border-radius: 12px;
-    font-size: 1.2rem;
-    font-weight: bold;
+    border-radius: 10px;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: transform 0.15s, box-shadow 0.15s;
+    margin-bottom: 28px;
+  }
+  button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(192,57,43,0.35);
+  }
+  button:active {
+    transform: translateY(0);
+  }
+  .info-section {
     margin-bottom: 24px;
   }
-  .btn:hover {
-    background: #b8860b;
-  }
-  .result {
-    display: none;
-    background: #fff8f0;
-    border: 3px solid #d2691e;
-    border-radius: 12px;
-    padding: 24px;
-    margin-bottom: 24px;
-    animation: fadeIn 0.5s ease;
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  .result h2 {
-    color: #8B4513;
-    font-size: 1.5rem;
-    margin-bottom: 12px;
-  }
-  .result .menu {
-    font-size: 1.3rem;
-    font-weight: bold;
-    color: #d2691e;
-    margin: 8px 0;
-  }
-  .result .price {
-    font-size: 1.8rem;
+  .info-section h3 {
+    font-size: 1.1rem;
     color: #c0392b;
-    font-weight: bold;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #f5c6c0;
+    padding-bottom: 6px;
   }
-  .result .info {
-    margin-top: 12px;
+  .min-price {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #27ae60;
+  }
+  .menu-list {
+    list-style: none;
+  }
+  .menu-list li {
+    padding: 10px 12px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     font-size: 0.95rem;
-    color: #555;
   }
-  .section {
-    margin-top: 32px;
+  .menu-list li:last-child {
+    border-bottom: none;
   }
-  .section h3 {
-    color: #8B4513;
-    border-bottom: 2px solid #d2691e;
-    padding-bottom: 8px;
-    margin-bottom: 16px;
+  .menu-list .shop-name {
+    font-weight: 700;
+    color: #333;
   }
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 0.9rem;
+  .menu-list .menu-name {
+    color: #666;
+    flex: 1;
+    margin: 0 10px;
   }
-  th, td {
-    border: 1px solid #ddd;
-    padding: 10px 8px;
-    text-align: left;
-  }
-  th {
-    background: #f5e6d3;
-    color: #8B4513;
-  }
-  tr:nth-child(even) {
-    background: #faf6f0;
-  }
-  .lowest {
-    background: #fff3cd;
-    padding: 16px;
-    border-radius: 8px;
-    margin-bottom: 16px;
-    border-left: 5px solid #ffc107;
+  .menu-list .yen {
+    color: #e74c3c;
+    font-weight: 700;
+    white-space: nowrap;
   }
   footer {
-    background: #333;
-    color: #ccc;
+    background: #f8f8f8;
     padding: 20px;
     font-size: 0.75rem;
+    color: #666;
     line-height: 1.6;
-    word-break: break-all;
+    border-top: 1px solid #eee;
   }
   footer strong {
-    color: #fff;
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+  }
+  .disclaimer {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 16px;
+    text-align: center;
   }
 </style>
 </head>
 <body>
-  <div class="container">
-    <header>
-      <h1>🍜 十三駅周辺<br>1000円以内ラーメン・つけ麺</h1>
-      <p>ランダムピックアップサイト</p>
-    </header>
+<div class="container">
+  <header>
+    <h1>🍜 梅田駅周辺<br>1000円以内ラーメン ランダム</h1>
+    <p>この料理風のラーメンを1000円以内で食べられるお店をランダムピックアップ</p>
+  </header>
 
-    <div class="content">
-      <button class="btn" onclick="pickRandom()">🎲 ランダムに選ぶ！</button>
-
-      <div id="result" class="result">
-        <h2 id="shopName"></h2>
-        <div class="menu" id="menuName"></div>
-        <div class="price" id="menuPrice"></div>
-        <div class="info" id="shopInfo"></div>
-      </div>
-
-      <div class="section">
-        <h3>💰 最低値情報</h3>
-        <div class="lowest" id="lowestInfo">
-          現在のデータでの最低価格メニューは「楽園」の「金の牛かす塩らぁ麺」約680円前後です。<br>
-          （価格は変動する可能性があるため、実際の店舗でご確認ください）
-        </div>
-      </div>
-
-      <div class="section">
-        <h3>📋 選ばれるメニュー一覧（1000円以内）</h3>
-        <table>
-          <thead>
-            <tr>
-              <th>店舗名</th>
-              <th>メニュー</th>
-              <th>価格目安</th>
-              <th>アクセス</th>
-            </tr>
-          </thead>
-          <tbody id="menuList">
-          </tbody>
-        </table>
-      </div>
+  <div class="main">
+    <div class="result-box" id="result">
+      <p style="color:#888;">下のボタンを押してランダムに選ぼう！</p>
     </div>
 
-    <footer>
-      <strong>【このサイトのプロンプト】</strong><br>
-      十三駅周辺でこの料理を1000円以内で食える場所をランダムにピックアップしてメニューもランダムに選ぶHTMLサイトを作ってください　最低値と選ばれるメニュー一覧も確認できるようにして<br>
-      このプロンプト自体の文字をサイトの下部に貼って
-    </footer>
+    <button onclick="pickRandom()">🎲 ランダムに選ぶ</button>
+
+    <div class="info-section">
+      <h3>💰 最低値（現在のデータ上）</h3>
+      <p class="min-price" id="minPrice">590円</p>
+      <p style="font-size:0.85rem;color:#666;margin-top:4px;">カドヤ食堂 阪神梅田店「中華そば」</p>
+    </div>
+
+    <div class="info-section">
+      <h3>📋 選ばれるメニュー一覧（1000円以内）</h3>
+      <ul class="menu-list" id="menuList"></ul>
+    </div>
+
+    <p class="disclaimer">
+      ※価格・メニューは調査時点のものです。実際は変動する可能性があります。<br>
+      ご来店前に店舗へご確認ください。梅田駅周辺徒歩圏内を中心にピックアップしています。
+    </p>
   </div>
 
+  <footer>
+    <strong>このサイトを生成したプロンプト：</strong>
+    梅田駅周辺でこの料理を1000円以内で食える場所をランダムにピックアップしてメニューもランダムに選ぶHTMLサイトを作ってください　最低値と選ばれるメニュー一覧も確認できるようにして
+このプロンプト自体の文字をサイトの下部に貼って
+  </footer>
+</div>
+
 <script>
-const data = [
-  {
-    shop: "ばっこ志",
-    access: "十三駅東口 徒歩1分",
-    menus: [
-      { name: "とんこつら〜めん", price: 800 },
-      { name: "黒油ラーメン", price: 750 },
-      { name: "朱油ラーメン", price: 800 },
-      { name: "特濃ラーメン", price: 900 },
-      { name: "つけ麺", price: 850 }
-    ]
-  },
-  {
-    shop: "町田商店 十三店",
-    access: "十三駅東口 徒歩1分",
-    menus: [
-      { name: "ラーメン（豚骨醤油）", price: 880 },
-      { name: "塩ラーメン", price: 880 },
-      { name: "つけ麺", price: 930 }
-    ]
-  },
-  {
-    shop: "三豊麺 十三店",
-    access: "十三駅西口 徒歩1分",
-    menus: [
-      { name: "白博多ラーメン", price: 890 },
-      { name: "黒博多ラーメン", price: 950 },
-      { name: "濃厚魚介つけ麺", price: 990 },
-      { name: "赤博多ラーメン", price: 990 }
-    ]
-  },
-  {
-    shop: "楽園",
-    access: "十三駅 徒歩2〜3分",
-    menus: [
-      { name: "金の牛かす塩らぁ麺", price: 680 },
-      { name: "スタミナ牛かす塩らぁ麺", price: 730 },
-      { name: "煮卵牛かす塩らぁ麺", price: 780 },
-      { name: "レアチャーシュー牛かす塩らぁ麺", price: 980 }
-    ]
-  },
-  {
-    shop: "ラーメン豚山 十三東口店",
-    access: "十三駅東口 徒歩1分",
-    menus: [
-      { name: "ミニラーメン（麺125g・豚2枚）", price: 950 }
-    ]
-  },
-  {
-    shop: "中華そば 桐麺 総本店",
-    access: "十三駅 徒歩2分",
-    menus: [
-      { name: "あっさり醤油ラーメン", price: 880 },
-      { name: "こってり醤油ラーメン", price: 950 },
-      { name: "まぜ麺Z", price: 950 }
-    ]
-  },
-  {
-    shop: "九州らーめん 亀王 十三駅前店",
-    access: "十三駅 徒歩1分",
-    menus: [
-      { name: "黒味噌ラーメン", price: 850 },
-      { name: "とんこつラーメン", price: 800 }
-    ]
-  }
+const items = [
+  { shop: "カドヤ食堂 阪神梅田店", menu: "中華そば", price: 590, access: "阪神梅田本店B1 スナックパーク" },
+  { shop: "カドヤ食堂 阪神梅田店", menu: "味玉中華そば", price: 790, access: "阪神梅田本店B1 スナックパーク" },
+  { shop: "カドヤ食堂 阪神梅田店", menu: "上中華そば", price: 880, access: "阪神梅田本店B1 スナックパーク" },
+  { shop: "古潭 ホワイティ梅田店", menu: "古潭らーめん（しょうゆ）", price: 631, access: "ホワイティうめだ内" },
+  { shop: "古潭 ホワイティ梅田店", menu: "ぎょうざらーめん（しょうゆ）", price: 712, access: "ホワイティうめだ内" },
+  { shop: "古潭 ホワイティ梅田店", menu: "古潭らーめん（みそ）", price: 652, access: "ホワイティうめだ内" },
+  { shop: "らーめん あらうま堂 梅田一番街店", menu: "あらうまらーめん", price: 730, access: "梅田一番街" },
+  { shop: "らーめん あらうま堂 梅田一番街店", menu: "つけ麺", price: 880, access: "梅田一番街" },
+  { shop: "まんねん 梅田本店", menu: "特製らーめん", price: 950, access: "堂山町・東梅田徒歩約4分" },
+  { shop: "まんねん 梅田本店", menu: "超らーめん", price: 950, access: "堂山町・東梅田徒歩約4分" },
+  { shop: "まんねん 梅田本店", menu: "豚しおらーめん", price: 950, access: "堂山町・東梅田徒歩約4分" },
+  { shop: "博多一幸舎 エキマルシェ大阪店", menu: "ラーメン", price: 800, access: "JR大阪駅エキマルシェ" },
+  { shop: "どうとんぼり神座（梅田周辺店）", menu: "神座らーめん", price: 760, access: "ルクア大阪など" }
 ];
 
-// 全メニューをフラット化
-const allMenus = [];
-data.forEach(shop => {
-  shop.menus.forEach(menu => {
-    allMenus.push({
-      shop: shop.shop,
-      access: shop.access,
-      name: menu.name,
-      price: menu.price
-    });
-  });
-});
+// 最低値計算
+const minItem = items.reduce((a, b) => a.price < b.price ? a : b);
+document.getElementById('minPrice').textContent = minItem.price + '円';
 
-// メニュー一覧を表示
-const tbody = document.getElementById('menuList');
-allMenus
+// メニュー一覧表示
+const listEl = document.getElementById('menuList');
+items
+  .slice()
   .sort((a, b) => a.price - b.price)
   .forEach(item => {
-    const tr = document.createElement('tr');
-    tr.innerHTML = `
-      <td>${item.shop}</td>
-      <td>${item.name}</td>
-      <td>${item.price}円</td>
-      <td>${item.access}</td>
+    const li = document.createElement('li');
+    li.innerHTML = `
+      <span class="shop-name">${item.shop}</span>
+      <span class="menu-name">${item.menu}</span>
+      <span class="yen">${item.price}円</span>
     `;
-    tbody.appendChild(tr);
+    listEl.appendChild(li);
   });
 
-// 最低値を計算
-const lowest = allMenus.reduce((min, m) => m.price < min.price ? m : min, allMenus[0]);
-document.getElementById('lowestInfo').innerHTML = `
-  現在のデータでの<strong>最低価格</strong>は<br>
-  <strong>${lowest.shop}</strong> の 「${lowest.name}」 <span style="color:#c0392b;font-size:1.3rem;">${lowest.price}円</span> です。<br>
-  <small>※価格は変動する可能性があるため、実際の店舗でご確認ください。2024〜2026年時点の情報を基にしています。</small>
-`;
-
 function pickRandom() {
-  const item = allMenus[Math.floor(Math.random() * allMenus.length)];
-  document.getElementById('shopName').textContent = item.shop;
-  document.getElementById('menuName').textContent = item.name;
-  document.getElementById('menuPrice').textContent = item.price + '円';
-  document.getElementById('shopInfo').textContent = 'アクセス: ' + item.access + '　｜　十三駅周辺で1000円以内のラーメン・つけ麺';
-  document.getElementById('result').style.display = 'block';
+  const item = items[Math.floor(Math.random() * items.length)];
+  const resultEl = document.getElementById('result');
+  resultEl.innerHTML = `
+    <h2>🎉 今日のおすすめ</h2>
+    <div class="shop">${item.shop}</div>
+    <div class="menu">${item.menu}</div>
+    <div class="price">${item.price}円</div>
+    <div class="note">${item.access}</div>
+  `;
 }
+
+// 初回は何も選ばない
 </script>
 </body>
 </html>
