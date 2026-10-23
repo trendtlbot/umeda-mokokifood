@@ -3,251 +3,301 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>梅田駅周辺 1000円以内ラーメン ランダムピックアップ</title>
+<title>オタロード周辺 2000円以内ラーメン ランダムピッカー</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+  :root {
+    --bg: #1a1a2e;
+    --card: #16213e;
+    --accent: #e94560;
+    --text: #eaeaea;
+    --muted: #a0a0b0;
+    --green: #4ecca3;
+  }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    font-family: 'Noto Sans JP', sans-serif;
-    background: linear-gradient(135deg, #fff8f0 0%, #ffe8d6 100%);
-    color: #333;
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: linear-gradient(160deg, #1a1a2e 0%, #0f3460 100%);
+    color: var(--text);
     min-height: 100vh;
     padding: 20px;
+    line-height: 1.6;
   }
   .container {
     max-width: 720px;
     margin: 0 auto;
-    background: #fff;
-    border-radius: 16px;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
-    overflow: hidden;
   }
-  header {
-    background: linear-gradient(90deg, #c0392b, #e74c3c);
-    color: white;
-    padding: 24px 20px;
+  h1 {
     text-align: center;
-  }
-  header h1 {
-    font-size: 1.5rem;
-    margin-bottom: 6px;
-  }
-  header p {
-    font-size: 0.9rem;
-    opacity: 0.9;
-  }
-  .main {
-    padding: 28px 24px;
-  }
-  .result-box {
-    background: #fff5f0;
-    border: 3px solid #e74c3c;
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
-    margin-bottom: 24px;
-    min-height: 180px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-  }
-  .result-box h2 {
-    color: #c0392b;
-    font-size: 1.3rem;
-    margin-bottom: 12px;
-  }
-  .result-box .shop {
-    font-size: 1.4rem;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .result-box .menu {
-    font-size: 1.2rem;
-    color: #555;
-    margin-bottom: 8px;
-  }
-  .result-box .price {
     font-size: 1.6rem;
-    font-weight: 700;
-    color: #e74c3c;
+    margin-bottom: 8px;
+    color: #fff;
   }
-  .result-box .note {
-    font-size: 0.8rem;
-    color: #888;
-    margin-top: 10px;
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-bottom: 24px;
   }
-  button {
+  .btn {
     display: block;
     width: 100%;
     padding: 16px;
-    font-size: 1.1rem;
-    font-weight: 700;
-    color: white;
-    background: linear-gradient(90deg, #c0392b, #e74c3c);
+    font-size: 1.15rem;
+    font-weight: bold;
     border: none;
-    border-radius: 10px;
+    border-radius: 12px;
     cursor: pointer;
-    transition: transform 0.15s, box-shadow 0.15s;
-    margin-bottom: 28px;
+    transition: transform 0.15s, opacity 0.15s;
   }
-  button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 16px rgba(192,57,43,0.35);
+  .btn:active { transform: scale(0.98); }
+  .btn-main {
+    background: var(--accent);
+    color: #fff;
+    margin-bottom: 16px;
   }
-  button:active {
-    transform: translateY(0);
+  .btn-main:hover { opacity: 0.9; }
+  .btn-sub {
+    background: transparent;
+    border: 1px solid var(--muted);
+    color: var(--text);
+    margin-bottom: 12px;
+    font-size: 0.95rem;
   }
-  .info-section {
-    margin-bottom: 24px;
+  .btn-sub:hover { border-color: var(--green); color: var(--green); }
+  .result {
+    background: var(--card);
+    border-radius: 16px;
+    padding: 24px;
+    margin: 20px 0;
+    display: none;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.3);
   }
-  .info-section h3 {
-    font-size: 1.1rem;
-    color: #c0392b;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #f5c6c0;
-    padding-bottom: 6px;
+  .result.show { display: block; animation: fadeIn 0.4s; }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .shop-name {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--green);
+    margin-bottom: 4px;
+  }
+  .menu-name {
+    font-size: 1.25rem;
+    margin: 12px 0 4px;
+  }
+  .price {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--accent);
   }
   .min-price {
-    font-size: 1.3rem;
-    font-weight: 700;
-    color: #27ae60;
+    color: var(--muted);
+    font-size: 0.9rem;
+    margin-top: 8px;
+  }
+  .panel {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    margin-top: 16px;
+    display: none;
+  }
+  .panel.show { display: block; }
+  .panel h3 {
+    font-size: 1rem;
+    margin-bottom: 12px;
+    color: var(--green);
   }
   .menu-list {
     list-style: none;
   }
   .menu-list li {
-    padding: 10px 12px;
-    border-bottom: 1px solid #eee;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
     font-size: 0.95rem;
   }
-  .menu-list li:last-child {
-    border-bottom: none;
-  }
-  .menu-list .shop-name {
-    font-weight: 700;
-    color: #333;
-  }
-  .menu-list .menu-name {
-    color: #666;
-    flex: 1;
-    margin: 0 10px;
-  }
-  .menu-list .yen {
-    color: #e74c3c;
-    font-weight: 700;
-    white-space: nowrap;
-  }
-  footer {
-    background: #f8f8f8;
-    padding: 20px;
+  .menu-list li:last-child { border-bottom: none; }
+  .note {
     font-size: 0.75rem;
-    color: #666;
-    line-height: 1.6;
-    border-top: 1px solid #eee;
-  }
-  footer strong {
-    display: block;
-    margin-bottom: 8px;
-    color: #333;
-  }
-  .disclaimer {
-    font-size: 0.8rem;
-    color: #999;
-    margin-top: 16px;
+    color: var(--muted);
+    margin-top: 20px;
     text-align: center;
+  }
+  .prompt-box {
+    margin-top: 40px;
+    padding: 16px;
+    background: rgba(0,0,0,0.35);
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .prompt-box h4 {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+  .prompt-box pre {
+    white-space: pre-wrap;
+    word-break: break-all;
+    font-size: 0.75rem;
+    color: #888;
+    font-family: monospace;
   }
 </style>
 </head>
 <body>
 <div class="container">
-  <header>
-    <h1>🍜 梅田駅周辺<br>1000円以内ラーメン ランダム</h1>
-    <p>この料理風のラーメンを1000円以内で食べられるお店をランダムピックアップ</p>
-  </header>
+  <h1>🍜 オタロード周辺<br>2000円以内ラーメン<br>ランダムピッカー</h1>
+  <p class="subtitle">大阪・日本橋オタロード周辺のラーメン店からランダムに1杯提案します</p>
 
-  <div class="main">
-    <div class="result-box" id="result">
-      <p style="color:#888;">下のボタンを押してランダムに選ぼう！</p>
-    </div>
+  <button class="btn btn-main" onclick="pick()">ランダムに選ぶ！</button>
+  <button class="btn btn-sub" onclick="toggleList()">選ばれるメニュー一覧を表示 / 隠す</button>
+  <button class="btn btn-sub" onclick="toggleMin()">各店の最低価格を表示 / 隠す</button>
 
-    <button onclick="pickRandom()">🎲 ランダムに選ぶ</button>
-
-    <div class="info-section">
-      <h3>💰 最低値（現在のデータ上）</h3>
-      <p class="min-price" id="minPrice">590円</p>
-      <p style="font-size:0.85rem;color:#666;margin-top:4px;">カドヤ食堂 阪神梅田店「中華そば」</p>
-    </div>
-
-    <div class="info-section">
-      <h3>📋 選ばれるメニュー一覧（1000円以内）</h3>
-      <ul class="menu-list" id="menuList"></ul>
-    </div>
-
-    <p class="disclaimer">
-      ※価格・メニューは調査時点のものです。実際は変動する可能性があります。<br>
-      ご来店前に店舗へご確認ください。梅田駅周辺徒歩圏内を中心にピックアップしています。
-    </p>
+  <div class="result" id="result">
+    <div class="shop-name" id="shopName"></div>
+    <div class="menu-name" id="menuName"></div>
+    <div class="price" id="price"></div>
+    <div class="min-price" id="minInfo"></div>
   </div>
 
-  <footer>
-    <strong>このサイトを生成したプロンプト：</strong>
-    梅田駅周辺でこの料理を1000円以内で食える場所をランダムにピックアップしてメニューもランダムに選ぶHTMLサイトを作ってください　最低値と選ばれるメニュー一覧も確認できるようにして
-このプロンプト自体の文字をサイトの下部に貼って
-  </footer>
+  <div class="panel" id="listPanel">
+    <h3>📋 選ばれるメニュー一覧（すべて2000円以内）</h3>
+    <ul class="menu-list" id="fullList"></ul>
+  </div>
+
+  <div class="panel" id="minPanel">
+    <h3>💰 各店の最低価格</h3>
+    <ul class="menu-list" id="minList"></ul>
+  </div>
+
+  <p class="note">
+    ※価格は公開情報に基づく参考値です。実際のメニュー・価格・営業状況は店舗でご確認ください。<br>
+    データは2024〜2026年頃の情報を基にしています。
+  </p>
+
+  <div class="prompt-box">
+    <h4>このサイトを生成したプロンプト</h4>
+    <pre>オタロード周辺でラーメンを2000円以内で食える場所をランダムにピックアップしてメニューもランダムに選ぶHTMLサイトを作ってください　最低値と選ばれるメニュー一覧も確認できるようにして このプロンプト自体の文字をサイトの下部に貼って</pre>
+  </div>
 </div>
 
 <script>
-const items = [
-  { shop: "カドヤ食堂 阪神梅田店", menu: "中華そば", price: 590, access: "阪神梅田本店B1 スナックパーク" },
-  { shop: "カドヤ食堂 阪神梅田店", menu: "味玉中華そば", price: 790, access: "阪神梅田本店B1 スナックパーク" },
-  { shop: "カドヤ食堂 阪神梅田店", menu: "上中華そば", price: 880, access: "阪神梅田本店B1 スナックパーク" },
-  { shop: "古潭 ホワイティ梅田店", menu: "古潭らーめん（しょうゆ）", price: 631, access: "ホワイティうめだ内" },
-  { shop: "古潭 ホワイティ梅田店", menu: "ぎょうざらーめん（しょうゆ）", price: 712, access: "ホワイティうめだ内" },
-  { shop: "古潭 ホワイティ梅田店", menu: "古潭らーめん（みそ）", price: 652, access: "ホワイティうめだ内" },
-  { shop: "らーめん あらうま堂 梅田一番街店", menu: "あらうまらーめん", price: 730, access: "梅田一番街" },
-  { shop: "らーめん あらうま堂 梅田一番街店", menu: "つけ麺", price: 880, access: "梅田一番街" },
-  { shop: "まんねん 梅田本店", menu: "特製らーめん", price: 950, access: "堂山町・東梅田徒歩約4分" },
-  { shop: "まんねん 梅田本店", menu: "超らーめん", price: 950, access: "堂山町・東梅田徒歩約4分" },
-  { shop: "まんねん 梅田本店", menu: "豚しおらーめん", price: 950, access: "堂山町・東梅田徒歩約4分" },
-  { shop: "博多一幸舎 エキマルシェ大阪店", menu: "ラーメン", price: 800, access: "JR大阪駅エキマルシェ" },
-  { shop: "どうとんぼり神座（梅田周辺店）", menu: "神座らーめん", price: 760, access: "ルクア大阪など" }
+const shops = [
+  {
+    name: "横浜家系ラーメン 大阪なんば 魂心家",
+    menus: [
+      { name: "醤油ラーメン", price: 650 },
+      { name: "醤油味玉ラーメン", price: 750 },
+      { name: "醤油631ラーメン", price: 900 },
+      { name: "塩ラーメン", price: 650 },
+      { name: "味噌ラーメン", price: 700 }
+    ]
+  },
+  {
+    name: "麺屋 丈六 なんば店",
+    menus: [
+      { name: "中華そば（小）", price: 700 },
+      { name: "中華そば", price: 800 },
+      { name: "中華そば（大）", price: 900 },
+      { name: "塩ラーメン", price: 850 },
+      { name: "煮干し醤油", price: 850 }
+    ]
+  },
+  {
+    name: "らーめん 天道",
+    menus: [
+      { name: "鶏ぱいたんらーめん", price: 700 },
+      { name: "魚介鶏ぱいたんらーめん", price: 750 },
+      { name: "からし鶏ぱいたんらーめん", price: 750 },
+      { name: "鶏ぱいたん味玉らーめん", price: 800 },
+      { name: "魚介鶏ぱいたんつけ麺", price: 880 }
+    ]
+  },
+  {
+    name: "くそオヤジ最後のひとふり なんば店",
+    menus: [
+      { name: "しじみらーめん", price: 791 },
+      { name: "あさりらーめん", price: 891 },
+      { name: "はまぐりらーめん", price: 991 },
+      { name: "あさりラーメン（税込参考）", price: 980 },
+      { name: "はまぐりらーめん（税込参考）", price: 1090 }
+    ]
+  },
+  {
+    name: "麺屋 青空 日本橋店",
+    menus: [
+      { name: "青空のあっさり塩ラーメン", price: 800 },
+      { name: "博多屋台豚骨ラーメン", price: 850 },
+      { name: "あおぞらのあっさり醤油ラーメン", price: 850 },
+      { name: "青空のあっさりエビラーメン", price: 800 },
+      { name: "新奈良豚骨ラーメン", price: 900 }
+    ]
+  },
+  {
+    name: "らーめん一八 日本橋店",
+    menus: [
+      { name: "一八特製らーめん", price: 850 },
+      { name: "濃厚つけ麺", price: 950 },
+      { name: "鶏白湯ラーメン", price: 800 },
+      { name: "特製つけ麺", price: 1050 }
+    ]
+  }
 ];
 
-// 最低値計算
-const minItem = items.reduce((a, b) => a.price < b.price ? a : b);
-document.getElementById('minPrice').textContent = minItem.price + '円';
-
-// メニュー一覧表示
-const listEl = document.getElementById('menuList');
-items
-  .slice()
-  .sort((a, b) => a.price - b.price)
-  .forEach(item => {
-    const li = document.createElement('li');
-    li.innerHTML = `
-      <span class="shop-name">${item.shop}</span>
-      <span class="menu-name">${item.menu}</span>
-      <span class="yen">${item.price}円</span>
-    `;
-    listEl.appendChild(li);
+// 全メニューをフラット化（2000円以内のみ）
+function getAllMenus() {
+  const list = [];
+  shops.forEach(shop => {
+    shop.menus.forEach(m => {
+      if (m.price <= 2000) {
+        list.push({ shop: shop.name, ...m });
+      }
+    });
   });
-
-function pickRandom() {
-  const item = items[Math.floor(Math.random() * items.length)];
-  const resultEl = document.getElementById('result');
-  resultEl.innerHTML = `
-    <h2>🎉 今日のおすすめ</h2>
-    <div class="shop">${item.shop}</div>
-    <div class="menu">${item.menu}</div>
-    <div class="price">${item.price}円</div>
-    <div class="note">${item.access}</div>
-  `;
+  return list;
 }
 
-// 初回は何も選ばない
+function pick() {
+  const all = getAllMenus();
+  const item = all[Math.floor(Math.random() * all.length)];
+  const shop = shops.find(s => s.name === item.shop);
+  const minPrice = Math.min(...shop.menus.map(m => m.price));
+
+  document.getElementById("shopName").textContent = item.shop;
+  document.getElementById("menuName").textContent = item.name;
+  document.getElementById("price").textContent = item.price.toLocaleString() + "円";
+  document.getElementById("minInfo").textContent = `この店の最低価格：${minPrice.toLocaleString()}円`;
+  document.getElementById("result").classList.add("show");
+}
+
+function toggleList() {
+  const panel = document.getElementById("listPanel");
+  if (!panel.classList.contains("show")) {
+    const all = getAllMenus();
+    const ul = document.getElementById("fullList");
+    ul.innerHTML = all
+      .sort((a, b) => a.price - b.price)
+      .map(m => `<li><span>${m.shop} / ${m.name}</span><span>${m.price.toLocaleString()}円</span></li>`)
+      .join("");
+  }
+  panel.classList.toggle("show");
+}
+
+function toggleMin() {
+  const panel = document.getElementById("minPanel");
+  if (!panel.classList.contains("show")) {
+    const ul = document.getElementById("minList");
+    ul.innerHTML = shops.map(shop => {
+      const min = Math.min(...shop.menus.map(m => m.price));
+      return `<li><span>${shop.name}</span><span>${min.toLocaleString()}円</span></li>`;
+    }).join("");
+  }
+  panel.classList.toggle("show");
+}
 </script>
 </body>
 </html>
